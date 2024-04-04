@@ -16,16 +16,20 @@ task body Philosopher is
          Id := PhilosopherId;
          LeftForkId := Id;
          RightForkId := Id rem 5 + 1;
-         if Id = 5 then
-            RightForkId := 5;
-            LeftForkId := 1;
-         end if;
+         
       end Start;
       Put_Line("P " & Id'Img & " is thinking");
-      Forks(LeftForkId).Seize;
-      Put_Line("P " & Id'Img & " took left");
-      Forks(RightForkId).Seize;
-        Put_Line("P " & Id'Img & " took right");
+      if Id mod 2 = 0 then
+         Forks(LeftForkId).Seize;
+         Put_Line("P " & Id'Img & " took left");
+         Forks(RightForkId).Seize;
+         Put_Line("P " & Id'Img & " took right");
+      else
+         Forks(RightForkId).Seize;
+         Put_Line("P " & Id'Img & " took right");
+         Forks(LeftForkId).Seize;
+         Put_Line("P " & Id'Img & " took left");
+      end if;
 
       delay(Standard.Duration(0.2));
 
